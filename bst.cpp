@@ -1,4 +1,6 @@
 #include <iostream>
+#include <queue>
+
 using namespace std;
 
 class Node
@@ -43,9 +45,79 @@ void takeInput(Node *&root)
     }
 }
 
+void levelOrderTraversal(Node *root)
+{
+    queue<Node *> q;
+    q.push(root);
+    q.push(NULL);
+
+    while (!q.empty())
+    {
+        Node *temp = q.front();
+        q.pop();
+        if (temp == NULL)
+        {
+            cout << endl;
+            if (!q.empty())
+            {
+                q.push(NULL);
+            }
+        }
+        else
+        {
+            cout << temp->data << " ";
+            if (temp->left)
+                q.push(temp->left);
+            if (temp->right)
+                q.push(temp->right);
+        }
+    }
+}
+
+void inorder(Node *root)
+{
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+void preorder(Node *root)
+{
+    if (root == NULL)
+        return;
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void postOrder(Node *root)
+{
+    if (root == NULL)
+        return;
+    postOrder(root->left);
+    postOrder(root->right);
+    cout << root->data << " ";
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
     Node *root = NULL;
     takeInput(root);
+
+    cout << "Printing level Order BST" << endl;
+    levelOrderTraversal(root);
+
+    cout << "Printing Inorder" << endl;
+    inorder(root);
+
+    cout << endl
+         << "Printing Preorder" << endl;
+    preorder(root);
+
+    cout << endl
+         << "Printing Postorder" << endl;
+    postOrder(root);
 }
