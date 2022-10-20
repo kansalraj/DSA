@@ -221,6 +221,31 @@ bool validateBST(Node *root)
     return isBST(root, INT_MIN, INT_MAX);
 }
 
+int solveKthSmallest(Node *root, int &i, int k)
+{
+    if (root == NULL)
+        return -1;
+
+    // L
+    int left = solveKthSmallest(root->left, i, k);
+    if (left != -1)
+        return left;
+
+    // N
+    i++;
+    if (i == k)
+        return root->data;
+
+    // R
+    return solveKthSmallest(root->right, i, k);
+}
+
+int kthSmallest(Node *root, int k)
+{
+    int i = 0;
+    return solveKthSmallest(root, i, k);
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
