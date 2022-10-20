@@ -101,6 +101,34 @@ void postOrder(Node *root)
     cout << root->data << " ";
 }
 
+// recursive search
+bool searchInBST(Node *root, int x)
+{
+    if (root == NULL)
+        return false;
+    if (root->data == x)
+        return true;
+    if (x < root->data)
+        return searchInBST(root->left, x);
+    else
+        return searchInBST(root->right, x);
+}
+
+bool iterativeSearchInBST(Node *root, int x)
+{
+    Node *temp = root;
+    while (temp)
+    {
+        if (temp->data == x)
+            return true;
+        if (temp->data > x)
+            temp = temp->left;
+        else
+            temp = temp->right;
+    }
+    return false;
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
