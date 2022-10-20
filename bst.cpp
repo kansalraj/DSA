@@ -129,6 +129,28 @@ bool iterativeSearchInBST(Node *root, int x)
     return false;
 }
 
+Node *minVal(Node *root)
+{
+    if (root == NULL)
+        return NULL;
+
+    Node *temp = root;
+    while (temp->left)
+        temp = temp->left;
+    return temp;
+}
+
+Node *maxVal(Node *root)
+{
+    if (root == NULL)
+        return NULL;
+
+    Node *temp = root;
+    while (temp->right)
+        temp = temp->right;
+    return temp;
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
