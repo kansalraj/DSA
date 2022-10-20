@@ -151,6 +151,53 @@ Node *maxVal(Node *root)
     return temp;
 }
 
+Node *deleteFromBST(Node *root, int val)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data == val)
+    {
+        // 0 child
+        if (!root->left && !root->right) {
+            delete root;
+            return NULL;
+        }
+        // 1 child (left)
+        if (root->left && !root->right) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        // 1 child (right)
+        if (!root->left && root->right) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        // 2 child
+        if (root->left && root->right) {
+            //find inorder successor val
+            int mini = minVal(root->right)->data;
+            root->data = mini;
+            root->right = deleteFromBST(root->right, mini);
+            return root;
+        }
+    }
+    else
+    {
+        if (val < root->data)
+        {
+            root->left = deleteFromBST(root->left, val);
+            return root;
+        }
+        else
+        {
+            root->right = deleteFromBST(root->right, val);
+            return root;
+        }
+    }
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
@@ -170,4 +217,11 @@ int main()
     cout << endl
          << "Printing Postorder" << endl;
     postOrder(root);
+
+    cout << endl
+         << minVal(root)->data << endl;
+    cout << maxVal(root)->data << endl;
+    root = deleteFromBST(root, 30);
+    cout << "Printing level Order BST" << endl;
+    levelOrderTraversal(root);
 }
