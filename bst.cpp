@@ -158,25 +158,29 @@ Node *deleteFromBST(Node *root, int val)
     if (root->data == val)
     {
         // 0 child
-        if (!root->left && !root->right) {
+        if (!root->left && !root->right)
+        {
             delete root;
             return NULL;
         }
         // 1 child (left)
-        if (root->left && !root->right) {
-            Node* temp = root->left;
+        if (root->left && !root->right)
+        {
+            Node *temp = root->left;
             delete root;
             return temp;
         }
         // 1 child (right)
-        if (!root->left && root->right) {
-            Node* temp = root->right;
+        if (!root->left && root->right)
+        {
+            Node *temp = root->right;
             delete root;
             return temp;
         }
         // 2 child
-        if (root->left && root->right) {
-            //find inorder successor val
+        if (root->left && root->right)
+        {
+            // find inorder successor val
             int mini = minVal(root->right)->data;
             root->data = mini;
             root->right = deleteFromBST(root->right, mini);
@@ -196,6 +200,25 @@ Node *deleteFromBST(Node *root, int val)
             return root;
         }
     }
+}
+
+bool isBST(Node *root, int min, int max)
+{
+    if (root == NULL)
+        return true;
+    if (root->data <= max && root->data > min)
+    {
+        return isBST(root->left, min, root->data) && isBST(root->right, root->data, max);
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool validateBST(Node *root)
+{
+    return isBST(root, INT_MIN, INT_MAX);
 }
 
 int main()
