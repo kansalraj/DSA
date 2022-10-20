@@ -246,6 +246,45 @@ int kthSmallest(Node *root, int k)
     return solveKthSmallest(root, i, k);
 }
 
+pair<int, int> predecessorSuccessor(Node *root, int key)
+{
+    Node *temp = root;
+    int pred = -1;
+    int succ = -1;
+
+    // Finding key
+    while (temp->data != key)
+    {
+        if (temp->data > key)
+        {
+            succ = temp->data;
+            temp = temp->left;
+        }
+        else
+        {
+            pred = temp->data;
+            temp = temp->right;
+        }
+    }
+
+    // pred ;
+    Node *left = temp->left;
+    while (left)
+    {
+        pred = left->data;
+        left = left->right;
+    }
+
+    // succ
+    Node *right = temp->right;
+    while (right)
+    {
+        succ = right->data;
+        right = right->left;
+    }
+    return {pred, succ};
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
