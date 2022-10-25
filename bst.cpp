@@ -296,6 +296,21 @@ Node *LCAinaBSTRecursive(Node *root, Node *P, Node *Q)
     return root;
 }
 
+Node *LCAinaBSTIterative(Node *root, Node *P, Node *Q)
+{
+    if (root == NULL)
+        return NULL;
+    while (root)
+    {
+        if (root->data > P->data && root->data > Q->data)
+            root = root->left;
+        else if (root->data < P->data && root->data < Q->data)
+            root = root->right;
+        else
+            return root;
+    }
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
