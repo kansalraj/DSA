@@ -338,6 +338,27 @@ bool twoSumInBST(Node *root, int target)
     return false;
 }
 
+Node *flattenBSTToSortedLL(Node *root)
+{
+    vector<int> inorderVal;
+    storeUsingInorder(root, inorderVal);
+    int n = inorderVal.size();
+
+    Node *newRoot = new Node(inorderVal[0]);
+    Node *curr = newRoot;
+
+    for (int i = 1; i < n; i++)
+    {
+        Node *temp = new Node(inorderVal[i]);
+        curr->left = NULL;
+        curr->right = temp;
+        curr = temp;
+    }
+    curr->left = NULL;
+    curr->right = NULL;
+    return newRoot;
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
