@@ -377,6 +377,26 @@ Node *balancedBst(Node *root)
     return inorderToBST(0, inorderVal.size() - 1, inorderVal);
 }
 
+Node *solvePreorderToBST(vector<int> &preorder, int mini, int maxi, int &i)
+{
+    if (i >= preorder.size())
+        return NULL;
+    if (preorder[i] < mini || preorder[i] > maxi)
+        return NULL;
+    Node *root = new Node(preorder[i++]);
+    root->left = solvePreorderToBST(preorder, mini, root->data, i);
+    root->right = solvePreorderToBST(preorder, root->data, maxi, i);
+    return root;
+}
+
+Node *preorderToBST(vector<int> &preorder)
+{
+    int mini = INT_MIN;
+    int maxi = INT_MAX;
+    int i = 0;
+    return solvePreorderToBST(preorder, mini, maxi, i);
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
