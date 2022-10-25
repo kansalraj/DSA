@@ -285,6 +285,17 @@ pair<int, int> predecessorSuccessor(Node *root, int key)
     return {pred, succ};
 }
 
+Node *LCAinaBSTRecursive(Node *root, Node *P, Node *Q)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data > P->data && root->data > Q->data)
+        return LCAinaBSTRecursive(root->left, P, Q);
+    if (root->data < P->data && root->data < Q->data)
+        return LCAinaBSTRecursive(root->right, P, Q);
+    return root;
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
