@@ -311,6 +311,33 @@ Node *LCAinaBSTIterative(Node *root, Node *P, Node *Q)
     }
 }
 
+void storeUsingInorder(Node *root, vector<int> &in)
+{
+    if (root == NULL)
+        return;
+    storeUsingInorder(root->left, in);
+    in.push_back(root->data);
+    storeUsingInorder(root->right, in);
+}
+
+bool twoSumInBST(Node *root, int target)
+{
+    vector<int> inorderVal;
+    storeUsingInorder(root, inorderVal);
+    int i = 0, j = inorderVal.size() - 1;
+    while (i < j)
+    {
+        int sum = inorderVal[i] + inorderVal[j];
+        if (sum == target)
+            return true;
+        if (sum > target)
+            j--;
+        else
+            i++;
+    }
+    return false;
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
