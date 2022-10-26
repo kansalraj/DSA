@@ -397,6 +397,43 @@ Node *preorderToBST(vector<int> &preorder)
     return solvePreorderToBST(preorder, mini, maxi, i);
 }
 
+vector<int> mergeArrays(vector<int> v1, vector<int> v2)
+{
+    vector<int> ans(v1.size() + v2.size());
+    int i = 0, j = 0, k = 0;
+    while (i < v1.size() && j < v2.size())
+    {
+        if (v1[i] < v2[j])
+            ans[k++] = v1[i++];
+        else
+            ans[k++] = v2[j++];
+    }
+    while (i < v1.size())
+    {
+        ans[k++] = v1[i++];
+    }
+    while (j < v2.size())
+    {
+        ans[k++] = v2[j++];
+    }
+    return ans;
+}
+
+Node *mergeBST(Node *root1, Node *root2)
+{
+    // Step 1: Store inorders;
+    vector<int> bst1, bst2;
+    storeUsingInorder(root1, bst1);
+    storeUsingInorder(root2, bst2);
+
+    // Step 2: Get merged Array
+    vector<int> mergedArray = mergeArrays(bst1, bst2);
+
+    // Step3: Create BST from mergedArray
+    int s = 0, e = mergedArray.size() - 1;
+    return inorderToBST(s, e, mergedArray);
+}
+
 int main()
 {
     std::cout << "make BST" << std::endl;
