@@ -82,4 +82,22 @@ pair<int, int> firstAndLastPosition(vector<int> &arr, int n, int k)
     return {firstOccInSortedArray(arr, n, k), lastOccInSortedArray(arr, n, k)};
 }
 
+int peakIndexInMountainArray(vector<int> &arr)
+{
+    int s = 0;
+    int e = arr.size() - 1;
+    int mid = (s + e) / 2;
+    while (s <= e)
+    {
+        if ((mid - 1) > -1 && (mid + 1) < arr.size() && arr[mid] > arr[mid - 1] && arr[mid] > arr[mid + 1])
+            return mid;
+        else if (arr[mid] < arr[mid + 1])
+            s = mid + 1;
+        else
+            e = mid - 1;
+        mid = (s + e) / 2;
+    }
+    return -1;
+}
+
 int main() {}
