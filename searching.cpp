@@ -121,7 +121,7 @@ int getPivot(int arr[], int n)
     int mid = (s + e) / 2;
     while (s < e)
     {
-        if (arr[mid] > arr[0])
+        if (arr[mid] >= arr[0])
         {
             s = mid + 1;
         }
@@ -130,6 +130,32 @@ int getPivot(int arr[], int n)
         mid = (s + e) / 2;
     }
     return s;
+}
+
+int binarySearchForSearchInRotatedSortedArray(int input[], int start, int end, int val)
+{
+    int s = start, e = end;
+    int mid = (e + s) / 2;
+    while (s <= e)
+    {
+        if (input[mid] == val)
+            return mid;
+        if (input[mid] > val)
+            e = mid - 1;
+        else
+            s = mid + 1;
+        mid = (e + s) / 2;
+    }
+    return -1;
+}
+
+int searchInRotatedSortedArray(int arr[], int n, int k)
+{
+    int pivot = getPivot(arr, n);
+    if (k >= arr[pivot] && k <= arr[n - 1])
+        return binarySearchForSearchInRotatedSortedArray(arr, pivot, n - 1, k);
+    else
+        return binarySearchForSearchInRotatedSortedArray(arr, 0, pivot - 1, k);
 }
 
 int main()
