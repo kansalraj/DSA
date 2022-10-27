@@ -187,8 +187,24 @@ int mySqrt(int x)
     return solveSqrtN(x);
 }
 
+double morePrecisionOfSqrt(int n, int precision, int tempSol)
+{
+    double factor = 1;
+    double ans = tempSol;
+    for (int i = 0; i < precision; i++)
+    {
+        factor = factor / 10;
+        for (double j = ans; j * j < n; j = j + factor)
+        {
+            ans = j;
+        }
+    }
+    return ans;
+}
+
 int main()
 {
-    int arr[5] = {3, 8, 10, 17, 1};
-    cout << getPivot(arr, 5);
+    // int arr[5] = {3, 8, 10, 17, 1};
+    // cout << getPivot(arr, 5);
+    cout << morePrecisionOfSqrt(101, 4, mySqrt(101));
 }
