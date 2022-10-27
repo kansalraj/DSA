@@ -246,6 +246,11 @@ int allocateBooks(vector<int> arr, int n, int m)
     return ans;
 }
 
+int PainterSPartitionProblem(vector<int> arr, int m)
+{
+    // same as allocateBooks
+}
+
 int main()
 {
     // int arr[5] = {3, 8, 10, 17, 1};
