@@ -1,6 +1,6 @@
 #include <iostream>
 #include <queue>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int binarySearch(int *input, int n, int val)
@@ -249,6 +249,49 @@ int allocateBooks(vector<int> arr, int n, int m)
 int PainterSPartitionProblem(vector<int> arr, int m)
 {
     // same as allocateBooks
+}
+
+bool isPossibleForAggressiveCows(vector<int> &stalls, int k, int mid)
+{
+    int cows = 1;
+    int lastPos = stalls[0];
+
+    for (int i = 0; i < stalls.size(); i++)
+    {
+        if (stalls[i] - lastPos >= mid)
+        {
+            cows++;
+            if (cows >= k)
+                return true;
+            lastPos = stalls[i];
+        }
+    }
+    return false;
+}
+
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    sort(stalls.begin(), stalls.end());
+    int s = 0;
+    int e = -1;
+    for (int i = 0; i < stalls.size(); i++)
+        e = max(e, stalls[i]);
+    int mid = s + (e - s) / 2;
+    int ans = -1;
+    while (s <= e)
+    {
+        if (isPossibleForAggressiveCows(stalls, k, mid))
+        {
+            s = mid + 1;
+            ans = mid;
+        }
+        else
+        {
+            e = mid - 1;
+        }
+        mid = s + (e - s) / 2;
+    }
+    return ans;
 }
 
 int main()
